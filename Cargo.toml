@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "dkreg",
+    "dkreg_cli",
+    "mcr",
+]
