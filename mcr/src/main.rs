@@ -2,6 +2,8 @@ use dkreg::schema::*;
 use dkreg::*;
 use structopt::StructOpt;
 
+mod layer2guid;
+
 #[derive(Debug, StructOpt)]
 #[structopt(name = "McrCli", about = "Microsoft Container Registry CLI tool")]
 /// Interact with Microsoft Container Registry through a CLI
@@ -59,6 +61,12 @@ enum McrCli {
         layer_layout_file: String,
         /// Supplies the tool path used to extract the individual layers.
         expand_layer_tool: String,
+    },
+    /// Hashes the supplied path name (string) into a layer GUID.
+    #[structopt(name = "layer2guid")]
+    Layer2Guid {
+        /// Supplies the path name (string) to hash into a layer GUID.
+        layer_path: String,
     },
 }
 
@@ -220,6 +228,13 @@ async fn run(args: &McrCli) -> Result<(), AnyError> {
             layer_layout_file,
             expand_layer_tool,
         } => extract_image_layers(&layer_layout_file, &expand_layer_tool).await,
+        McrCli::Layer2Guid { layer_path } => {
+            println!(
+                "{}",
+                &layer2guid::guid_to_string(layer2guid::layer_path_to_guid(&layer_path))
+            );
+            Ok(())
+        }
     }
 }
 

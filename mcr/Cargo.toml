@@ -12,3 +12,6 @@ structopt="0.2.15"
 log = "0.4.6"
 env_logger = "0.6.1"
 tokio = { version = "0.2", features = ["full"] }
+uuid = { version = "0.8.1", features = ["winapi", "guid"] }
+widestring = "0.4.2"
+winapi = { version = "0.3.9", features = ["bcrypt"] }
